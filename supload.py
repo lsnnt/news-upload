@@ -25,37 +25,11 @@ def upload_to_scribd(fnamei):
 
     upload_url = response.json()["upload_url"]
     fname = response.json()["fields"]["key"]
-
     with open(fnamei,'rb') as f:
         files = {'file': ('ahj.pdf', f, 'application/pdf')}
         # send form fields as data and the file as files
         response2 = requests.post(upload_url, data=respjs, files=files)
 
-    print(response2.text)
+    print(response2.status_code)
 
-    params = {
-        'sig': '8d266c092bd1e6cc814d48adfe31d44426e477e8',
-        'user_id': '688308679',
-    }
-    capt = getcap()
-    data = {
-        'captcha_token': str(capt),
-        'session_val': ss,
-        'filename': fname,
-        'original_filename': fnamei.split("/")[-1]
-    }
-
-    response3 = requests.post(
-        'https://www.scribd.com/newupload/direct_upload',
-        params=params,
-        cookies=cookies,
-        headers=headers,
-        data=data,
-    )
-
-    print(response3.text)
-    theid = response3.json()["id"]
-    sp = response3.json()["secret_password"]
-
-    urld = f"https://www.scribd.com/document_downloads/{str(theid)}?secret_password={sp}&extension=pdf"
-    return urld
+    return fname
