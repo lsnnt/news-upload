@@ -9,12 +9,12 @@ def upnews(nurl,nname):
         res = requests.get(nurl)
         print("Downloading",nname,"...")
         soup = BeautifulSoup(res.text,"html.parser")
-        
+
         url = soup.find_all('b')[0].find('a')
         if(url is not None):
             url = url['data-id']
             driveid = str(url).split("/")[5]
-        
+
             response = requests.get(f"https://drive.usercontent.google.com/download?id={driveid}&export=download&confirm=t",stream=True)
             if response.status_code == 200:
                 with open(f"{nname}-{time.strftime('%d-%m-%Y')}.pdf", "wb") as f:
@@ -33,3 +33,4 @@ if __name__ ==  "__main__":
     fd = ["economic-times","the-hindu","business-standard","hindustan-times","times-of-india","the-statesman","financial-express","orissa-post","indian-express","the-telegraph","the-mint","free-press-journal","navbharat-times","punjab-kesari","amar-ujala","dainik-bhaskar","jansatta","haribhoomi","ei-samay","ekdin","karmasangsthan","karmakshetra","sangbad-pratidin","aajkaal","andhra-jyothi","eenadu","pudhari","maharashtra-times","loksatta","lokmat","sambad","dharitri","orissa-post"]
     for i in range(len(urls)):
          upnews(urls[i],fd[i])
+    print("All news papers uploaded successfully")

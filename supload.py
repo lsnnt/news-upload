@@ -1,16 +1,17 @@
 import requests
 from time import sleep as sl
 import os
-
+from capsol import getcap
 
 def upload_to_scribd(fnamei):
     ss = str(os.getenv("SCRIBD_SESSION"))
     cookies = {
         '_scribd_session': ss,
+        'scribd_ubtc':'u%3D23ead9e0-6c05-4d0e-bb7c-9a491ab12a0c%26h%3D6NqVGzii36qUZ%2BZkTcp94Hb6bxubtNgieFMIOsBbO9w%3D'
     }
 
     headers = {
-        'x-csrf-token': 'DHttpQ_a1BDQc6FH1fuhOTnOPaUtkef8GNPr9VC6Du07pQ0Kbhwoky1tvyBLNLGtTwxSbMrH-GyYMTiBoEEw9g',
+        'x-csrf-token': '85QOR15lXUcLPC6NnxT1-Sj5sapPR79fJCOzWE_qlyvESm7oP6OhxPYiMOoB2-VtXjveY6gRoM-kwWAsvxGpMA',
         'Content-Type': 'application/x-www-form-urlencoded',
     }
 
@@ -36,8 +37,9 @@ def upload_to_scribd(fnamei):
         'sig': '8d266c092bd1e6cc814d48adfe31d44426e477e8',
         'user_id': '688308679',
     }
-
+    capt = getcap()
     data = {
+        'captcha_token': str(capt),
         'session_val': ss,
         'filename': fname,
         'original_filename': fnamei.split("/")[-1]
@@ -57,4 +59,3 @@ def upload_to_scribd(fnamei):
 
     urld = f"https://www.scribd.com/document_downloads/{str(theid)}?secret_password={sp}&extension=pdf"
     return urld
-
