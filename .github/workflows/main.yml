@@ -1,0 +1,31 @@
+name: Daily Scribd Upload
+
+on:
+  schedule:
+    - cron: "30 3 * * *"  # every day at midnight UTC
+  workflow_dispatch:      # allows manual trigger via Actions tab
+
+jobs:
+  upload:
+    runs-on: ubuntu-latest
+
+    env:
+      SCRIBD_SESSION: ${{ secrets.SCRIBD_SESSION }}
+      CAPTCHA_KEY: ${{ secrets.CAPTCHA_KEY }}
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Install dependencies
+        run: |
+          pip3 install -r requirements.txt
+
+      - name: Run upload script
+        run: |
+          python3 main.py
