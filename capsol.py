@@ -11,7 +11,7 @@ def getcap():
         'pageurl': "https://www.scribd.com/upload-document",
         'method': 'userrecaptcha',
         # 'invi'
-        'key': os.getenv('2CAPTCHA_KEY')
+        'key': os.getenv('CAPTCHA_KEY')
     }
     endpoint = 'http://2captcha.com/in.php'
     response = requests.post(endpoint, params=params)
@@ -20,7 +20,7 @@ def getcap():
     params = {
                 'id': response.text.split('|')[1],
                 'action': 'get',
-                'key': str(os.environ.get('CAPTCHA_KEY'))
+                'key': str(os.getenv('CAPTCHA_KEY'))
             }
     endpoint = 'http://2captcha.com/res.php'
     response2 = requests.get(endpoint, params=params)

@@ -23,7 +23,7 @@ def upnews(nurl,nname):
             print("Downloaded",nname)
             print("Uploading",nname,"...")
             print("Uploaded",nname)
-            abb = [upload_to_scribd(f"{nname}-{time.strftime('%d-%m-%Y')}.pdf"),f"{nname}-{time.strftime('%d-%m-%Y')}.pdf"]
+            abb = upload_to_scribd(f"{nname}-{time.strftime('%d-%m-%Y')}.pdf")
             os.remove(f"{nname}-{time.strftime('%d-%m-%Y')}.pdf")
             return abb
     except Exception as e:
@@ -36,7 +36,7 @@ if __name__ ==  "__main__":
     oflist = []
     for i in range(len(urls)):
         new_var = upnews(urls[i],fd[i])
-        flist.append(new_var[0])
-        oflist.append(new_var[1])
+        flist.append(new_var)
+        oflist.append(f"{fd[i]}-{time.strftime('%d-%m-%Y')}.pdf")
     lr(flist,oflist)
     print("All news papers uploaded successfully")
