@@ -22,13 +22,9 @@ def upnews(nurl,nname):
                         f.write(chunk)
             print("Downloaded",nname)
             print("Uploading",nname,"...")
-            try:
-                return [upload_to_scribd(f"{nname}-{time.strftime('%d-%m-%Y')}.pdf"),f"{nname}-{time.strftime('%d-%m-%Y')}.pdf"]
-            except Exception as e:
-                print(e)
-            
             print("Uploaded",nname)
             os.remove(f"{nname}-{time.strftime('%d-%m-%Y')}.pdf")
+            return [upload_to_scribd(f"{nname}-{time.strftime('%d-%m-%Y')}.pdf"),f"{nname}-{time.strftime('%d-%m-%Y')}.pdf"]
     except Exception as e:
         print(e)
 
