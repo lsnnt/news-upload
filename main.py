@@ -23,8 +23,9 @@ def upnews(nurl,nname):
             print("Downloaded",nname)
             print("Uploading",nname,"...")
             print("Uploaded",nname)
+            abb = [upload_to_scribd(f"{nname}-{time.strftime('%d-%m-%Y')}.pdf"),f"{nname}-{time.strftime('%d-%m-%Y')}.pdf"]
             os.remove(f"{nname}-{time.strftime('%d-%m-%Y')}.pdf")
-            return [upload_to_scribd(f"{nname}-{time.strftime('%d-%m-%Y')}.pdf"),f"{nname}-{time.strftime('%d-%m-%Y')}.pdf"]
+            return abb
     except Exception as e:
         print(e)
 
