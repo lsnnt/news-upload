@@ -2,7 +2,7 @@ name: Daily Scribd Upload
 
 on:
   schedule:
-    - cron: "30 3 * * *"  # every day at midnight UTC
+    - cron: "0 3 * * *"  # every day at midnight UTC
   workflow_dispatch:      # allows manual trigger via Actions tab
 
 jobs:
