@@ -12,7 +12,7 @@ jobs:
     env:
       SCRIBD_SESSION: ${{ secrets.SCRIBD_SESSION }}
       CAPTCHA_KEY: ${{ secrets.CAPTCHA_KEY }}
-		
+
     steps:
       - name: gcloud login
         uses: 'google-github-actions/auth@v3'
