@@ -22,9 +22,10 @@ def upnews(nurl,nname):
                         f.write(chunk)
             print("Downloaded",nname)
             print("Uploading",nname,"...")
-            print("Uploaded",nname)
             abb = upload_to_scribd(f"{nname}-{time.strftime('%d-%m-%Y')}.pdf")
-            os.remove(f"{nname}-{time.strftime('%d-%m-%Y')}.pdf")
+            print("Uploaded",nname)
+            # os.remove(f"{nname}-{time.strftime('%d-%m-%Y')}.pdf") 
+            # removed this line for further uploading on gcloud drive
             return abb
     except Exception as e:
         print(e)
