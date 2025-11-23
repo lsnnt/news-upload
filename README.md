@@ -1,6 +1,6 @@
 # Intro
-Why this ???
-I dont know maybe to learn more about how git and github works and maybe i can learn something useful out of it on how to handle complex works and to learn more about docker and github actions also and mabye reverse engineering products.
+
+An automated pipeline that aggregates news articles from limited-access sources and archives them to Scribd. This project ensures permanent access to information by bypassing temporary download restrictions.
 
 ## Problem
 
