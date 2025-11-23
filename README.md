@@ -1,74 +1,106 @@
-# Intro
+# 📰 Automated News Archival Pipeline
 
-An automated pipeline that aggregates news articles from limited-access sources and archives them to Scribd. This project ensures permanent access to information by bypassing temporary download restrictions.
+![Python](https://img.shields.io/badge/Python-3.9%2B-blue?logo=python&logoColor=white)
+![Docker](https://img.shields.io/badge/Docker-Ready-2496ED?logo=docker&logoColor=white)
+![GitHub Actions](https://img.shields.io/badge/CI%2FCD-GitHub%20Actions-2088FF?logo=github-actions&logoColor=white)
+![License](https://img.shields.io/badge/License-GPLv3-green)
 
-## Problem
+An automated ETL (Extract, Transform, Load) pipeline designed to aggregate digital publications from limited-access sources and archive them to Scribd for permanent preservation. 
 
-Main problem is that the news is not freely accessible as there are paywalls on news channels.
+This project demonstrates the use of containerization, continuous integration, and automated challenge-response handling (CAPTCHA) to build resilient data collection workflows.
 
-The problem with news article published online for free at my given source is that if many people downloads the file g drive reaches maximum download limit and cannot download the files so at first i download them and upload to a public pdf provider where any user can access any pdf virtually any number of times.
+## 🚀 Features
 
-But what happens when already the limit reached.
+* **Automated Extraction:** Scrapes specific PDF publications on a daily schedule.
+* **Resilient Logic:** Integrates **2Captcha** to handle anti-bot challenges and maintain session continuity.
+* **Cloud-Native:** Fully containerized with **Docker** for consistent execution across environments.
+* **CI/CD:** Orchestrated via **GitHub Actions** to run autonomously without local intervention.
+* **Session Management:** Securely handles authentication cookies (`_scribd_session`) via environment secrets.
 
-Then we can't do anything 
-and the uploaded files on scribd will show errors
+---
 
-## Running
+## 🛠️ Architecture & Problem Solved
 
-### Running your own this via github actions
-Fork this repo and in repo secrets 
+**The Challenge:**
+Researchers and archivists often face difficulties preserving digital news media due to:
+1.  Temporary availability windows (content disappears after 24 hours).
+2.  Daily download quotas on source platforms.
+3.  The need for manual, repetitive retrieval processes.
 
-Add 
-- SCRIBD_SESSION
-- CAPTCHA_KEY
+**The Solution:**
+This pipeline acts as a middleware that:
+1.  **Extracts** the document from the source.
+2.  **Processes** the file (handling authentication and verification).
+3.  **Loads** (Archives) the document to a centralized Scribd repository for long-term access.
 
-SCRIBD_SESSION is the value of cookie _scribd_session
-CAPTCHA_KEY is the value of api key obtained from [2Captcha](https://2captcha.com/enterpage)
+---
 
-### Running on your local machine
+## ⚙️ Configuration & Secrets
 
-1) Clone the repo
-```
-git clone https://github.com/lsnnt/news-upload 
-```
-2) Go to the repo location
-```
+To run this pipeline, you need two key secrets. Set these as **Environment Variables** (locally) or **Repository Secrets** (on GitHub).
+
+| Variable | Description |
+| :--- | :--- |
+| `SCRIBD_SESSION` | Your valid `_scribd_session` cookie value. This allows the script to upload as your user. |
+| `CAPTCHA_KEY` | Your API key from [2Captcha](https://2captcha.com/). Used to solve security challenges during scraping. |
+
+---
+
+## 💻 Installation & Usage
+
+### Option 1: Running with Docker (Recommended)
+
+The easiest way to run the application is via the pre-built container.
+
+```bash
+docker run \
+  -e SCRIBD_SESSION="your_scribd_session_cookie" \
+  -e CAPTCHA_KEY="your_2captcha_api_key" \
+  ghcr.io/lsnnt/news-upload:latest
+````
+
+### Option 2: Running Locally (Python)
+
+**1. Clone the repository**
+
+```bash
+git clone https://github.com/lsnnt/news-upload.git
 cd news-upload
 ```
-2) Install the dependencies
-```
+
+**2. Install dependencies**
+
+```bash
 pip3 install -r requirements.txt
 ```
-3) Export the secrets 
+
+**3. Set Environment Variables**
+
+```bash
+export SCRIBD_SESSION="your_long_session_string"
+export CAPTCHA_KEY="your_captcha_key"
 ```
-export SCRIBD_SESSION="Your long scribd session id here"
-export CAPTCHA_KEY="your 2captcha key here"  
-```
-4) Run the main function
-```
+
+**4. Execute the pipeline**
+
+```bash
 python3 main.py
 ```
 
-Now you know how to run in your local machine now you can run it anywhere. !!! 🥳
+-----
 
-### Running via docker
+## 🤝 Support & Contact
 
-The easiest just install docker
-```
-docker run \
-  -e SCRIBD_SESSION="Your long scribd session id here" \
-  -e CAPTCHA_KEY="your 2captcha key here" \
-  ghcr.io/lsnnt/news-upload:latest
-```
+**Maintainer:** Nityanand Thakur
 
-## Support
+  * **Session:** `05501ebf09a0fe363d76046f0f2c027f3ce031bd649dbb94113622e6cb25563334`
+  * **Email:** [tnityanand523@gmail.com](mailto:tnityanand523@gmail.com)
+  * **Scribd Profile:** [View Archive](https://www.scribd.com/user/688308679/Nityanand-Thakur)
 
-Contact me on Session at 05501ebf09a0fe363d76046f0f2c027f3ce031bd649dbb94113622e6cb25563334
+<details>
+<summary><strong>🔐 Click to view PGP Public Key</strong></summary>
 
-On email at tnityanand523@gmail.com
-use pgp encryption 74B98BF367A3084CC8202FAF8DFEF50F58A432A6
-
-```
+```text
 -----BEGIN PGP PUBLIC KEY BLOCK-----
 
 mDMEaFvucBYJKwYBBAHaRw8BAQdAV1Was61jXtFiI12folbbWsQYKiWyfzMZwf8j
@@ -85,24 +117,15 @@ Jg9mg78E
 -----END PGP PUBLIC KEY BLOCK-----
 ```
 
-## Sources
+</details>
 
-We source our news from [here](https://epaperwave.com/) 
-You can find all news paper for free.
+-----
 
-My Scribd url :- [my scribd profile](https://www.scribd.com/user/688308679/Nityanand-Thakur)
+## 📄 License
 
-## Issue
+This project is licensed under the [GNU GPLv3 License](https://www.google.com/search?q=COPYING).
 
-Any issue open an issue
+> **Disclaimer:** This tool is intended for educational purposes and personal archival use only. Users are responsible for ensuring their usage complies with the Terms of Service of the source platforms.
 
-## Contributing
-
-Pull requests are welcome. For major changes, please open an issue first
-to discuss what you would like to change.
-
-Please make sure to update tests as appropriate.
-
-## License
-
-[GNU GPL](https://choosealicense.com/licenses/gpl-3.0/)
+```
+```
