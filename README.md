@@ -126,6 +126,3 @@ Jg9mg78E
 This project is licensed under the [GNU GPLv3 License](https://www.google.com/search?q=COPYING).
 
 > **Disclaimer:** This tool is intended for educational purposes and personal archival use only. Users are responsible for ensuring their usage complies with the Terms of Service of the source platforms.
-
-```
-```
