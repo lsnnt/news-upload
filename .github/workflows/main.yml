@@ -14,13 +14,14 @@ jobs:
       CAPTCHA_KEY: ${{ secrets.CAPTCHA_KEY }}
 
     steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        
       - name: gcloud login
         uses: 'google-github-actions/auth@v3'
         with:
-            credentials_json: '${{ secrets.GOOGLE_CREDENTIALS }}'
-      - name: Checkout repository
-        uses: actions/checkout@v4
-
+          credentials_json: '${{ secrets.GOOGLE_CREDENTIALS }}'
+      
       - name: Set up Python
         uses: actions/setup-python@v5
         with:
