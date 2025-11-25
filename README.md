@@ -4,6 +4,7 @@
 ![Docker](https://img.shields.io/badge/Docker-Ready-2496ED?logo=docker&logoColor=white)
 ![GitHub Actions](https://img.shields.io/badge/CI%2FCD-GitHub%20Actions-2088FF?logo=github-actions&logoColor=white)
 ![License](https://img.shields.io/badge/License-GPLv3-green)
+[![Daily Scribd Upload](https://github.com/lsnnt/news-upload/actions/workflows/main.yml/badge.svg)](https://github.com/lsnnt/news-upload/actions/workflows/main.yml)
 
 An automated ETL (Extract, Transform, Load) pipeline designed to aggregate digital publications from limited-access sources and archive them to Scribd for permanent preservation. 
 
