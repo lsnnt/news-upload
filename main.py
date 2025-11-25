@@ -2,6 +2,7 @@ from bs4 import BeautifulSoup
 import requests
 import time
 import os
+import re
 from supload import upload_to_scribd
 from lastruntoupload import lr
 def upnews(nurl,nname):
@@ -10,10 +11,10 @@ def upnews(nurl,nname):
         print("Downloading",nname,"...")
         soup = BeautifulSoup(res.text,"html.parser")
 
-        url = soup.find_all('b')[0].find('a')
-        if(url is not None):
-            url = url['data-id']
-            driveid = str(url).split("/")[5]
+        link = soup.find('a', href=re.compile(r'drive\.google\.com'))
+        if(link is not None):
+            link = link['data-id']
+            driveid = str(link).split("/")[5]
 
             response = requests.get(f"https://drive.usercontent.google.com/download?id={driveid}&export=download&confirm=t",stream=True)
             if response.status_code == 200:
