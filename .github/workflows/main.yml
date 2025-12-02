@@ -2,8 +2,8 @@ name: Daily Scribd Upload
 
 on:
   schedule:
-    - cron: "0 3 * * *"  # every day at midnight UTC
-  workflow_dispatch:      # allows manual trigger via Actions tab
+    - cron: "0 3 * * *"
+  workflow_dispatch:
 
 jobs:
   upload:
@@ -17,10 +17,10 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v4
         
-      - name: gcloud login
-        uses: 'google-github-actions/auth@v3'
-        with:
-          credentials_json: '${{ secrets.GOOGLE_CREDENTIALS }}'
+      # - name: gcloud login
+      #   uses: 'google-github-actions/auth@v3'
+      #   with:
+      #     credentials_json: '${{ secrets.GOOGLE_CREDENTIALS }}'
       
       - name: Set up Python
         uses: actions/setup-python@v5
@@ -34,11 +34,22 @@ jobs:
       - name: Run upload script
         run: |
           python3 main.py
-      - name: 'Set up Cloud SDK'
-        uses: 'google-github-actions/setup-gcloud@v3'
-        with:
-          version: '>= 363.0.0'
+      # - name: 'Set up Cloud SDK'
+      #   uses: 'google-github-actions/setup-gcloud@v3'
+      #   with:
+      #     version: '>= 363.0.0'
 
-      - name: upload to my gcloud
+      # - name: upload to my gcloud
+      #   run: |
+      #     gcloud storage cp *.pdf gs://noble-might-330612.appspot.com/news-archive/$(date +'%Y-%m-%d')/
+
+      - name: Configure AWS credentials
+        uses: aws-actions/configure-aws-credentials@v4
+        with:
+          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          aws-region: us-east-1 # Change this to your bucket's region
+
+      - name: Upload pdfs to S3 glacier archive
         run: |
-          gcloud storage cp *.pdf gs://noble-might-330612.appspot.com/news-archive/$(date +'%Y-%m-%d')/
+          aws s3 cp *.pdf s3://${{ secrets.S3_BUCKET_NAME }}/news-archive/$(date +'%Y-%m-%d')/ --storage-class DEEP_ARCHIVE
