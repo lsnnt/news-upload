@@ -55,4 +55,4 @@ jobs:
           DATE_DIR=$(date +'%Y-%m-%d')
           mkdir -p "$DATE_DIR"
           mv *.pdf "$DATE_DIR/"
-          aws s3 cp "$DATE_DIR" s3://nohjkl/news-archive/ --recursive --storage-class DEEP_ARCHIVE
+          aws s3 cp "$DATE_DIR" "s3://nohjkl/news-archive/$DATE_DIR" --recursive --storage-class DEEP_ARCHIVE
